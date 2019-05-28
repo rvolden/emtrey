@@ -37,8 +37,8 @@ Otherwise:
 
 ### Notes
 
-- If you aren't using a minimap sam file, the first three columns of the psl file will probably be wrong, since most aligners use M to indicate matches and mismatches without using X or = in their CIGAR strings.
+- If you aren't using a minimap sam file, the first three columns of the psl file will probably be wrong, since most aligners use M to indicate matches and mismatches without using X or = in their CIGAR strings. However, these can be calculated using the `NM:i:` and `nn:i:` tags that minimap produces.
 
-- The strand is determined using the 0x10 bit, as per the SAM file format spec. If you have a spliced minimap alignment, it will check for the extra tag 'ts:A:', which overwrites what was calculated from the bit.
+- The strand is determined using the 0x10 bit, as per the SAM file format spec. If you have a spliced minimap alignment, it will check for the extra tag `ts:A:`, which overwrites what was calculated from the bit.
 
 - Be sure to leave the header in the SAM file, as it's needed for the target sizes.

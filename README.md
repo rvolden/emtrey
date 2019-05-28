@@ -15,8 +15,8 @@ emtrey takes a minimap SAM file and outputs a PSL file.
 Options:
 
 ```
-   -i    Input SAM file
-   -m    Use to indicate the use of a SAM file that came from minimap2
+-i    Input SAM file
+-m    Use to indicate the use of a SAM file that came from minimap2
 ```
 
 emtrey will output the PSL file to stdout.

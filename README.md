@@ -1,4 +1,4 @@
-# sam2psl
+# emtrey (M-2PO, minimap 2 psl output)
 
 SAM to PSL conversion program. Preferably takes a SAM file produced by [minimap2](https://github.com/lh3/minimap2) to make a PSL file.
 
@@ -10,7 +10,7 @@ To compile, use `make`
 
 ### Usage
 
-sam2psl takes a minimap SAM file and outputs a PSL file.
+emtrey takes a minimap SAM file and outputs a PSL file.
 
 Options:
 
@@ -19,18 +19,18 @@ Options:
    -m    Use to indicate the use of a SAM file that came from minimap2
 ```
 
-sam2psl will output the PSL file to stdout.
+emtrey will output the PSL file to stdout.
 
 Using a minimap sam file:
 
 ```bash
-./sam2psl -m -i minimap_output.sam >out.psl
+./emtrey -m -i minimap_output.sam >out.psl
 ```
 
 Otherwise:
 
 ```bash
-./sam2psl -i alignment.sam >out.psl
+./emtrey -i alignment.sam >out.psl
 ```
 
 --------------------------------------------------------------------------------

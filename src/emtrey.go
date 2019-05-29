@@ -24,7 +24,7 @@ func check(e error) {
 
 func isSet(n, k uint) bool {
 	k--
-	if n&(1<<k) {
+	if n&(1<<k) != 0 {
 		return true
 	}
 	return false
@@ -160,6 +160,8 @@ func readSAM(samFile *string) {
 				}
 				mismatch = NM - ID - ambig
 				matches = M - mismatch
+			} else if EQ != 0 {
+				matches, mismatch = EQ, X
 			} else {
 				mismatch, matches = 0, M
 			}

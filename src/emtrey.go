@@ -23,7 +23,8 @@ func check(e error) {
 }
 
 func isSet(n, k uint) bool {
-	if n&(1<<k-1) != 0 {
+	k--
+	if n&(1<<k) {
 		return true
 	}
 	return false

@@ -9,6 +9,7 @@ import (
 	sc "strconv"
 	str "strings"
 	uni "unicode"
+	"time"
 )
 
 // command line arguments
@@ -170,6 +171,7 @@ func readSAM(samFile *string) {
 }
 
 func main() {
+	start := time.Now()
 	flag.Parse()
 
 	if *in == "" {
@@ -178,4 +180,9 @@ func main() {
 	readSAM(in)
 
 	fmt.Fprintf(os.Stderr, "SAM from mm: %v\n", *mm)
+
+	// stop timer and print elapsed time to stderr
+	stop := time.Now()
+	elapsed := stop.Sub(start)
+	fmt.Fprintf(os.Stderr, "Took %v to run.\n", elapsed)
 }

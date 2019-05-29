@@ -169,10 +169,10 @@ func readSAM(samFile *string) {
 			qSt := str.Trim(str.Join(str.Fields(fmt.Sprint(qStarts)), ","), "[]")
 			tSt := str.Trim(str.Join(str.Fields(fmt.Sprint(tStarts)), ","), "[]")
 
-			fmt.Printf("%d\t%d\t0\t%d\t%d\t", matches, mismatch, N, nI, I)
-			fmt.Printf("%d\t%d\t%d\t%v\t%v\t", nD, D, strand, name, sLen)
-			fmt.Printf("%v\t%d\t%d\t%v\t%v\t", qStart, end, sLine[2], qSize, tStart)
-			fmt.Printf("%d\t%d\t%d\t%v,\t%v,\t%v,\n", tEnd, blockCount, bSize, qSt, tSt)
+			fmt.Printf("%d\t%d\t0\t%d\t%d\t%d\t", matches, mismatch, N, nI, I)
+			fmt.Printf("%d\t%d\t%v\t%v\t%v\t", nD, D, strand, name, sLen)
+			fmt.Printf("%d\t%d\t%v\t%v\t%d\t", qStart, end, sLine[2], qSize, tStart)
+			fmt.Printf("%d\t%d\t%v,\t%v,\t%v,\n", tEnd, blockCount, bSize, qSt, tSt)
 		}
 	}
 }

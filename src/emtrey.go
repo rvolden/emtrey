@@ -147,14 +147,12 @@ func readSAM(samFile *string) {
 			// use minimap's extra flags to determine mismatches
 			var NM, ambig, matches, mismatch int
 			if *mm {
-				for _, col := range sLine {
+				for _, col := range sLine[9:] {
 					if str.Contains(col, "NM:i:") {
 						NM, _ = sc.Atoi(col[5:])
-					}
-					if str.Contains(col, "nn:i:") {
+					} else if str.Contains(col, "nn:i:") {
 						ambig, _ = sc.Atoi(col[5:])
-					}
-					if str.Contains(col, "ts:A:") {
+					} else if str.Contains(col, "ts:A:") {
 						strand = col[5:]
 					}
 				}

@@ -88,6 +88,8 @@ func readSAM(samFile *string) {
 				if j == 0 && str.Contains("SH", string(entry[last])) {
 					qStart, _ = sc.Atoi(entry[:last])
 					qStarts = append(qStarts, qStart)
+				} else if j == 0 {
+					qStarts = append(qStarts, 0)
 				}
 				if j == len(splitC)-1 && entry[last] == 'S' {
 					qEnd, _ = sc.Atoi(entry[:last])

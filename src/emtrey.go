@@ -56,14 +56,14 @@ func readSAM(samFile *string) {
 	chroms := make(map[string]string)
 	for scanner.Scan() {
 		line := scanner.Text()
-		if line[0] == '@' {
+		if line[0] == '@' { // SAM header lines
 			if line[1] != 'S' {
 				continue
 			}
 			sLine := str.Split(line, "\t")
 			// putting chr sizes into map
 			chroms[sLine[1][3:]] = sLine[2][3:]
-		} else {
+		} else { // alignment lines
 			sLine := str.Split(line, "\t")
 			name, qSize := sLine[0], chroms[sLine[2]]
 
@@ -85,50 +85,52 @@ func readSAM(samFile *string) {
 			var tStarts = []int{tStart}
 			for j, entry := range splitC {
 				last := len(entry) - 1
+				// adjust start of the read according the clipping
 				if j == 0 && str.Contains("SH", string(entry[last])) {
 					qStart, _ = sc.Atoi(entry[:last])
 					qStarts = append(qStarts, qStart)
 				} else if j == 0 {
 					qStarts = append(qStarts, 0)
 				}
+				// also adjust the end
 				if j == len(splitC)-1 && entry[last] == 'S' {
 					qEnd, _ = sc.Atoi(entry[:last])
 				}
 				switch entry[last] {
-				case 'M':
+				case 'M': // matches and mismatches
 					m, _ := sc.Atoi(entry[:last])
 					M += m
 					blockSizes = append(blockSizes, entry[:last])
 					qStarts = append(qStarts, m+qStarts[len(qStarts)-1])
 					tStarts = append(tStarts, m+tStarts[len(tStarts)-1])
-				case 'I':
+				case 'I': // insertions
 					i, _ := sc.Atoi(entry[:last])
 					I += i
 					nI++
 					qStarts[len(qStarts)-1] += i
-				case 'D':
+				case 'D': // deletions
 					d, _ := sc.Atoi(entry[:last])
 					D += d
 					nD++
 					tStarts[len(tStarts)-1] += d
-				case 'N':
+				case 'N': // unmapped bases
 					n, _ := sc.Atoi(entry[:last])
 					N += n
 					tStarts[len(tStarts)-1] += n
-				case 'S':
+				case 'S': // soft clipped bases
 					s, _ := sc.Atoi(entry[:last])
 					S += s
-				case '=':
+				case '=': // matches
 					eq, _ := sc.Atoi(entry[:last])
 					EQ += eq
-				case 'X':
+				case 'X': // mismatches
 					x, _ := sc.Atoi(entry[:last])
 					X += x
 				}
 			}
 
-			ID := I + D
-			sLen := M + I + S + EQ + X
+			ID := I + D // indels
+			sLen := M + I + S + EQ + X // calculated sequence lenght
 			consumeRef := M + D + N + EQ + X
 			tEnd := tStart + consumeRef
 			if qEnd == 0 {

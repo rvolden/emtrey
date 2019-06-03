@@ -13,7 +13,7 @@ import (
 )
 
 // command line arguments
-var in = flag.String("i", "", "Input sam file.")
+var in = flag.String("i", "", "Input SAM file.")
 var mm = flag.Bool("m", false, "Use if your SAM file is from minimap2.")
 
 func check(e error) {

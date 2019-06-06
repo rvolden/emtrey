@@ -122,7 +122,7 @@ func readSAM(samFile *string) {
 				case 'S': // soft clipped bases
 					s, _ := sc.Atoi(entry[:last])
 					S += s
-				case 'H':
+				case 'H': // hard clipped bases
 					h, _ := sc.Atoi(entry[:last])
 					H += h
 				case '=': // matches
@@ -166,6 +166,9 @@ func readSAM(samFile *string) {
 					}
 				}
 				mismatch = NM - ID - ambig
+				if mismatch < 0 {
+					mismatch = 0
+				}
 				matches = M - mismatch
 			} else if EQ != 0 {
 				matches, mismatch = EQ, X

@@ -66,7 +66,9 @@ func readSAM(samFile *string) {
 		} else { // alignment lines
 			sLine := str.Split(line, "\t")
 			name, qSize := sLine[0], chroms[sLine[2]]
-
+			if sLine[2] == "*" {
+				continue
+			}
 			bitFlag, _ := sc.Atoi(sLine[1])
 			var strand string
 			if isSet(uint(bitFlag), 16) {
@@ -79,7 +81,7 @@ func readSAM(samFile *string) {
 			tStart--
 
 			splitC := parseCIGAR(sLine[5])
-			var qStart, qEnd, end, M, I, D, N, S, EQ, X, nI, nD int
+			var qStart, qEnd, end, M, I, D, N, S, H, EQ, X, nI, nD int
 			var blockSizes = []string{}
 			var qStarts = []int{}
 			var tStarts = []int{tStart}
@@ -120,6 +122,9 @@ func readSAM(samFile *string) {
 				case 'S': // soft clipped bases
 					s, _ := sc.Atoi(entry[:last])
 					S += s
+				case 'H':
+					h, _ := sc.Atoi(entry[:last])
+					H += h
 				case '=': // matches
 					eq, _ := sc.Atoi(entry[:last])
 					EQ += eq
@@ -130,7 +135,7 @@ func readSAM(samFile *string) {
 			}
 
 			ID := I + D // indels
-			sLen := M + I + S + EQ + X // calculated sequence lenght
+			sLen := M + I + S + H + EQ + X // calculated sequence lenght
 			consumeRef := M + D + N + EQ + X
 			tEnd := tStart + consumeRef
 			if qEnd == 0 {

@@ -154,7 +154,12 @@ func readSAM(samFile *string) {
 					} else if str.Contains(col, "nn:i:") {
 						ambig, _ = sc.Atoi(col[5:])
 					} else if str.Contains(col, "ts:A:") {
-						strand = col[5:]
+						newStrand := col[5:]
+						if newStrand == "-" && strand == "+" {
+							strand = "-"
+						} else if newStrand == "-" && strand == "-" {
+							strand = "+"
+						}
 					}
 				}
 				mismatch = NM - ID - ambig

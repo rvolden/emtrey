@@ -22,14 +22,6 @@ func check(e error) {
 	}
 }
 
-func isSet(n, k uint) bool {
-	k--
-	if n&(1<<k) != 0 {
-		return true
-	}
-	return false
-}
-
 func parseCIGAR(cigar string) (splitC []string) {
 	// splits CIGAR string into a splice with the number + letter
 	tmp := ""
@@ -71,7 +63,7 @@ func readSAM(samFile *string) {
 			}
 			bitFlag, _ := sc.Atoi(sLine[1])
 			var strand string
-			if isSet(uint(bitFlag), 16) {
+			if (uint(bitFlag) & 0x10) != 0 {
 				strand = "-"
 			} else {
 				strand = "+"

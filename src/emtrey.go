@@ -8,8 +8,8 @@ import (
 	"os"
 	sc "strconv"
 	str "strings"
-	uni "unicode"
 	"time"
+	uni "unicode"
 )
 
 // command line arguments
@@ -43,9 +43,9 @@ func readSAM(samFile *string) {
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
-    const maxBuffer = 1024*1024
-    buf := make([]byte, 0, maxBuffer)
-    scanner.Buffer(buf, maxBuffer)
+	const maxBuffer = 1024 * 1024
+	buf := make([]byte, 0, maxBuffer)
+	scanner.Buffer(buf, maxBuffer)
 
 	// keep hash of chr:size
 	chroms := make(map[string]string)
@@ -129,7 +129,7 @@ func readSAM(samFile *string) {
 				}
 			}
 
-			ID := I + D // indels
+			ID := I + D                    // indels
 			sLen := M + I + S + H + EQ + X // calculated sequence lenght
 			consumeRef := M + D + N + EQ + X
 			tEnd := tStart + consumeRef

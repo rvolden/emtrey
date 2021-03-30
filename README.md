@@ -1,5 +1,6 @@
 # emtrey (M-2PO, minimap 2 psl output)
 
+[![Github release](https://img.shields.io/github/tag/rvolden/emtrey.svg?label=Version)](https://github.com/rvolden/emtrey/tags)
 SAM to PSL conversion program. Preferably takes a SAM file produced by [minimap2](https://github.com/lh3/minimap2) to make a PSL file.
 
 ## Dependencies

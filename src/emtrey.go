@@ -15,6 +15,9 @@ import (
 // command line arguments
 var in = flag.String("i", "", "Input SAM file.")
 var mm = flag.Bool("m", false, "Use if your SAM file is from minimap2.")
+var ver = flag.Bool("v", false, "Use to print emtrey version.")
+
+const emtrey_version = "v1.1"
 
 func check(e error) {
 	if e != nil {
@@ -190,6 +193,11 @@ func readSAM(samFile *string) {
 func main() {
 	start := time.Now()
 	flag.Parse()
+
+	if *ver {
+		fmt.Println(emtrey_version)
+		os.Exit(0)
+	}
 
 	if *in == "" {
 		log.Fatal("Please specify an input file.\n")

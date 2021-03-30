@@ -43,6 +43,9 @@ func readSAM(samFile *string) {
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
+    const maxBuffer = 1024*1024
+    buf := make([]byte, 0, maxBuffer)
+    scanner.Buffer(buf, maxBuffer)
 
 	// keep hash of chr:size
 	chroms := make(map[string]string)
